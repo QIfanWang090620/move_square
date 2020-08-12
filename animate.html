@@ -1,0 +1,190 @@
+<html>
+	<head>
+		<script type="text/javascript">
+			function getContext() { 
+				document.getElementById("canvas");
+				return canvas.getContext("2d");
+			}
+
+			function drawAnimation() {
+				var ctx = getContext();
+
+				ctx.clearRect(0, 0, 300, 300);
+				ctx.save();
+
+				drawSquare(startX, startY);
+
+				ctx.restore();
+
+				window.requestAnimationFrame(drawAnimation);
+			}
+
+			window.onload = function() {
+				window.requestAnimationFrame(drawAnimation);
+			}
+
+		 	function drawSquare(offsetX, offsetY) {
+		 		var ctx = getContext();			
+				// Any line that begins with two forward slashes is a comment 
+				// Comments allow us to write useful notes next to our code
+
+				ctx.fillStyle = 'blue'; // this is the colour used to fill the shape
+
+				var scale = 20; // scale controls the size of the square
+				
+				ctx.beginPath();
+				ctx.moveTo(offsetX, offsetY);
+				
+				var nextX = (1 * scale) + offsetX;
+				var nextY =  (1 * scale)+ offsetY;
+				ctx.lineTo(nextX, nextY);
+
+				nextX -= 1 * scale;
+				nextY += 1 * scale;
+				ctx.lineTo(nextX, nextY);
+
+				nextX -= 1 * scale;
+				nextY -= 1 * scale;
+				ctx.lineTo(nextX, nextY);
+
+				nextX += 1 * scale;
+				nextY -= 1 * scale;
+				ctx.lineTo(nextX, nextY);
+
+				// ctx.stroke(); 
+				ctx.fill(); // If we remove ctx.stroke() and add ctx.fill() this fills the shape with colour
+			}
+
+			// ------- IGNORE code before this line ------- //
+
+			/*
+
+			ANIMATE INSTRUCTIONS:
+
+			(1) Open this page in your web browser (double-click on animate.html and open in Google Chrome)
+			(2) Click the buttons 'Move Right', etc. and see what they do
+
+			ANIMATE QUESTIONS:
+
+			(1) Look at the function moveRight() and how it moves the square according to the button that you click. Try to implement the other functions moveLeft() moveUp() moveDown() in a similar way
+
+			(2) If you click the button once, the square moves by one pixel. Make the square move more than one pixel
+
+			(3) Implement the function moveDownRight() - this should move the square down one unit and right one unit (so it is diagonal)
+
+			(4) Add new buttons, and implement other diagonal movements (moveDownLeft(), moveUpLeft(), moveUpRight())
+				- To add new buttons, copy and paste the lines that start with <input> below:
+					<input type="button" value="Move Down Left" onclick="moveDownLeft()"
+				- To add a new function, copy and paste the other functions like moveDownRight():
+					function moveDownLeft() {
+
+					}
+
+			(5) 
+				(a) Read this webpage about how to make the program understand which key on your keyboard you have pressed:
+					https://www.w3schools.com/jsref/event_onkeypress.asp
+
+				(b) Modify the function keyPressed to do move the square in the right direction when each arrow key is pressed
+
+			*/
+
+			document.addEventListener('keydown', keyPressed);
+
+			function keyPressed(event) {
+				var keyCode = event.code;
+				if (keyCode == "ArrowRight") {
+					// Question 5(b)
+					moveRight();
+				}
+				if (keyCode == "ArrowLeft") {
+					// Question 5(b)
+					moveLeft();
+				}
+				if (keyCode == "ArrowUp") {
+					// Question 5(b)
+					moveUp();
+				}
+				if (keyCode == "ArrowDown") {
+					// Question 5(b)
+					moveDown();
+				}
+				
+
+			var startX = 100; // x-coordinate of square (from left)
+			var startY = 0; // y-coordinate of square (from top)
+			var step=10;
+
+			function moveRight() {
+				// Question(2)
+				startX += step; 
+			}
+
+			function moveLeft() {
+				// Question (1), (2)
+				startX -= step;
+			}
+			
+
+			function moveUp() {
+				// Question (1), (2)
+				startY -= step;
+			}
+
+			function moveDown() {
+				// Question (1), (2)
+				startY += step;
+			}
+
+			function moveDownRight() {
+				// Question (3)
+				moveDown();
+				moveRight();
+			}
+
+			function moveDownLeft() {
+				// Question (3)
+				moveDown();
+				moveLeft
+			}
+			// Question (4)
+			function moveUpLeft() {
+				// Question (3)
+				moveLeft();
+				moveUp();
+			}
+			function moveUpRight() {
+				// Question (3)
+				moveRight(); 
+				moveUp();
+			}	
+			// Question (4)
+		</script>
+	</head>
+	<body>
+		<div style="margin:0 auto; width: 800px;">
+			<div>
+				<canvas id="canvas" width="300" height="300" style="border: 1px solid #000;"></canvas>
+			</div>
+			<div>
+				<input type="button" value="Move Right" style="display: inline;" onclick="moveRight()" />
+				<br />
+				<input type="button" value="Move Left" style="display: inline;" onclick="moveLeft()" />
+				<br />
+				<input type="button" value="Move Up" style="display: inline;" onclick="moveUp()" />
+				<br />
+				<input type="button" value="Move Down" style="display: inline;" onclick="moveDown()" />
+				<br />
+				<input type="button" value="Move Down-Right" style="display: inline;" onclick="moveDownRight()" />
+				<!-- Question (4) -->
+				<br />
+				<input type="button" value="Move Down-Left" style="display: inline;" onclick="moveDownLeft()" />
+				<br />
+				<input type="button" value="Move Up-Left" style="display: inline;" onclick="moveUpLeft()" />
+				<!-- Question (4) -->
+				<br />
+				<input type="button" value="Move Up-Right" style="display: inline;" onclick="moveUpRight()" />
+				<br />
+			</div>
+		</div>
+	</body>
+</html>
